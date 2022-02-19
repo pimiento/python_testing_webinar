@@ -1,0 +1,176 @@
+#+TITLE: Python. Тестирование.
+#+EMAIL: @pvavilin
+#+AUTHOR: @pvavilin
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [smallest]
+#+LATEX_HEADER: \usetheme{default}
+#+LATEX_HEADER: \usecolortheme{crane}
+#+LATEX_HEADER: \RequirePackage{fancyvrb}
+#+LATEX_HEADER: \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\scriptsize}
+#+LaTeX_HEADER: \lstset{basicstyle=\scriptsize\ttfamily}
+#+LATEX_HEADER: \usepackage{xlop}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+OPTIONS: \n:t ^:nil num:nil ltoc:nil buttons:nil
+#+NAME: argsubst
+#+BEGIN_SRC emacs-lisp :var argument="1e2" :exports none
+argument
+#+END_SRC
+
+* Какое бывает тестирование
+  - manual testing (ручное тестирование)
+  - performance testing (тестирование производительности)
+  - unit-testing (юнит-тестирование)
+  - functional testing (функциональное тестирование)
+  - integration testing (интеграционное тестирование)
+  - regression testing (регрессионное тестирование)
+* Ручное тестирование
+  Обычно у тестировщика есть некоторый план /стандартных задач и действий пользователя/. Тестировщик по этому плану проходит, может пробовать вводить нестандартные значения в формы, пытаться "перехитрить" нашу программу
+* Performance testing
+  Время работы
+  #+BEGIN_SRC python :exports both :results output :noweb yes
+        import time
+        start = time.time()
+        COUNT = int(<<argsubst()>>)
+        result = sum(x for x in range(COUNT))
+        finish = time.time()
+        print(
+            f"Time to summarazie {COUNT:.0E}: "
+            f"{finish-start:.5f}"
+        )
+  #+END_SRC
+
+  #+RESULTS:
+  : Time to summarazie 1E+07: 0.42132
+* Performance testing
+  Время работы
+  #+BEGIN_SRC python :exports both :results output pp :noweb yes
+    import timeit
+    from pprint import pp
+    pp(timeit.repeat(
+        "sum(x for x in range(int(<<argsubst()>>)))",
+        number=1,
+        globals=globals()
+    ))
+  #+END_SRC
+
+  #+RESULTS:
+  : [0.41123631299706176,
+  :  0.40915992500958964,
+  :  0.40876991202821955,
+  :  0.41219404397998005,
+  :  0.41449598502367735]
+* Performance testing
+  Профилирование по времени
+  #+BEGIN_SRC python :exports code :noweb yes :tangle cprofile_using.py :shebang "#!/usr/bin/env python3"
+        import cProfile
+
+        cProfile.run(
+            "sum(x for x in range(int(<<argsubst()>>)))"
+        )
+  #+END_SRC
+* Performance testing
+  Профилирование по памяти
+  #+BEGIN_SRC python :exports code :noweb yes :tangle mem_prof.py :shebang "#!/usr/bin/env python3"
+    @profile
+    def my_func():
+        a = (x for x in range(int(<<argsubst()>>)))
+        b = [x for x in range(int(<<argsubst()>>))]
+        del b
+        return a
+
+    if __name__ == '__main__':
+        my_func()
+  #+END_SRC
+  #+BEGIN_SRC shell :exports code
+    python -m memory_profiler mem_prof.py
+  #+END_SRC
+* Performance testing
+  Apache Benchmark
+  #+BEGIN_SRC shell :exports both :results output
+    sudo apt install apache2-utils
+    ab -V
+    # ab -c 10 -n 8000 http://localhost:8000/
+  #+END_SRC
+
+  #+RESULTS:
+  : This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
+  : Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+  : Licensed to The Apache Software Foundation, http://www.apache.org/
+  :
+* unit-tests
+  - Обычно пишутся самими программистами.
+  - В идеали сначала программисты пишут тесты, а потом покрывают эти тесты кодом. TDD: Test Driven Development
+  - Каждый тест должен быть независим от других, многие фреймворки позволяют запускать тесты параллельно.
+* Unittest vs Pytest
+  - Unittest встроен в Python, pytest надо устанавливать.
+  - pytest богаче в плане вывода отчётов, параметризации тестов, поэтому используется чаще.
+  - pytest поддерживает запусков тестов для unittest (имеет обратную совместимость с unittest)
+* functional testing
+  Главное __[[https://www.educba.com/unit-test-vs-functional-test/][отличие]]__ от Unit-tests в том, что пишущий такие тесты не знает об устройстве программы. Такой подход называется *black-box*.
+  Функциональные тесты проверяют, что вызов некоторой функции / __[[https://redoc.ly/docs/cli/][API]]__ / HTML-формы с конкретными параметрами вернёт конкретный результат.
+* functional testing
+  __[[https://docs.python.org/3/library/doctest.html][Doctest]]__
+   #+BEGIN_SRC python :exports code :tangle "doctest_ex.py" :shebang "#!/usr/bin/env python3"
+     import doctest
+     def square(x):
+         """Return the square of x.
+
+         >>> square(2)
+         4
+         >>> square(-2)
+         0
+         """
+         return x * x
+     if __name__ == "__main__":
+         doctest.testmod()
+   #+END_SRC
+
+* integration testing
+  В отличие от unit tests, мы тестируем модули на своместную работу. Например
+  #+BEGIN_EXAMPLE
+    Создание комментариев к записям и удаление записей
+    в отдельных unit-тестах уже протестировано.
+    В интеграционном тесте нам необходимо протестировать
+    удаление записей после создания комментария.
+  #+END_EXAMPLE
+* BDD
+  Behave Driven Development
+  #+BEGIN_EXAMPLE
+    Feature: Rocking with behave and django
+
+        Scenario: тестовый клиент Django
+            When django-клиент обращается к адресу "/"
+            Then это должно вернуть страницу удачно
+            And я увижу заголовок вкладки \
+                "Последние обновления | Yatube"
+  #+END_EXAMPLE
+* Тестирование GUI
+  #+BEGIN_SRC shell :exports code
+    pip install selenium
+  #+END_SRC
+  #+BEGIN_SRC python :exports code
+    from selenium import webdriver
+    from selenium.webdriver.common.keys \
+        import Keys
+
+    driver = webdriver.Chrome()
+    driver.get("http://www.python.org")
+    assert "Python" in driver.title
+    elem = driver.find_element_by_name("q")
+    elem.clear()
+    elem.send_keys("pycon")
+    elem.send_keys(Keys.RETURN)
+    assert "No results found." not in driver.page_source
+    driver.close()
+  #+END_SRC
+
+* Автоматизация тестирования
+
+* Полезные ссылки
+  - __[[https://selenium-python.readthedocs.io/][Selenium & Python]]__
+  - __[[https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/][Selenium & BDD]]__
+* Вопросы-ответы
+  #+ATTR_LATEX: :width .6\textwidth
+  [[file:///home/pimiento/yap/questions.jpg]]
