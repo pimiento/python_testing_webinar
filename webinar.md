@@ -1,24 +1,24 @@
-- [Какое бывает тестирование](#orgf9700f9)
-- [Ручное тестирование](#orgd78a9fa)
-- [Performance testing](#orgeb5d4ba)
-- [Performance testing](#orgdd4e9ca)
-- [Performance testing](#orgaec9de4)
-- [Performance testing](#org5bef33e)
-- [Performance testing](#org57be9ce)
-- [unit-tests](#org5c4fcd4)
-- [Unittest vs Pytest](#org701b3fa)
-- [functional testing](#org2629c8a)
-- [functional testing](#org32aa87b)
-- [integration testing](#org339d521)
-- [BDD](#orgcc117ec)
-- [Тестирование GUI](#orgfc0c109)
-- [Автоматизация тестирования](#orgf3b0c15)
-- [Полезные ссылки](#orgcc80414)
-- [Вопросы-ответы](#org5c7d964)
+- [Какое бывает тестирование](#org8443ee9)
+- [Ручное тестирование](#orga90fd8d)
+- [Performance testing](#org55cb383)
+- [Performance testing](#orga536a24)
+- [Performance testing](#org0196783)
+- [Performance testing](#org438adaa)
+- [Performance testing](#orge4c10cf)
+- [unit-tests](#org8439bab)
+- [Unittest vs Pytest](#orgbe47ed2)
+- [functional testing](#orga0b9e75)
+- [functional testing](#org1809895)
+- [integration testing](#org2e7fda9)
+- [BDD](#orgea6bc85)
+- [Тестирование GUI](#orga2f90ef)
+- [Автоматизация тестирования](#orga8f3aae)
+- [Полезные ссылки](#orgfee612d)
+- [Вопросы-ответы](#org236e12b)
 
 
 
-<a id="orgf9700f9"></a>
+<a id="org8443ee9"></a>
 
 # Какое бывает тестирование
 
@@ -30,14 +30,14 @@
 -   regression testing (регрессионное тестирование)
 
 
-<a id="orgd78a9fa"></a>
+<a id="orga90fd8d"></a>
 
 # Ручное тестирование
 
 Обычно у тестировщика есть некоторый план *стандартных задач и действий пользователя*. Тестировщик по этому плану проходит, может пробовать вводить нестандартные значения в формы, пытаться "перехитрить" нашу программу
 
 
-<a id="orgeb5d4ba"></a>
+<a id="org55cb383"></a>
 
 # Performance testing
 
@@ -58,7 +58,7 @@ print(
     Time to summarazie 1E+02: 0.00001
 
 
-<a id="orgdd4e9ca"></a>
+<a id="orga536a24"></a>
 
 # Performance testing
 
@@ -74,14 +74,14 @@ pp(timeit.repeat(
 ))
 ```
 
-    [7.2160037234425545e-06,
-     4.334026016294956e-06,
-     3.87697946280241e-06,
-     3.8879807107150555e-06,
-     3.934954293072224e-06]
+    [6.193993613123894e-06,
+     4.436005838215351e-06,
+     3.9780279621481895e-06,
+     4.007015377283096e-06,
+     3.918015863746405e-06]
 
 
-<a id="orgaec9de4"></a>
+<a id="org0196783"></a>
 
 # Performance testing
 
@@ -96,7 +96,7 @@ cProfile.run(
 ```
 
 
-<a id="org5bef33e"></a>
+<a id="org438adaa"></a>
 
 # Performance testing
 
@@ -119,7 +119,7 @@ python -m memory_profiler mem_prof.py
 ```
 
 
-<a id="org57be9ce"></a>
+<a id="orge4c10cf"></a>
 
 # Performance testing
 
@@ -136,7 +136,7 @@ ab -V
     Licensed to The Apache Software Foundation, http://www.apache.org/
 
 
-<a id="org5c4fcd4"></a>
+<a id="org8439bab"></a>
 
 # unit-tests
 
@@ -145,7 +145,7 @@ ab -V
 -   Каждый тест должен быть независим от других, многие фреймворки позволяют запускать тесты параллельно.
 
 
-<a id="org701b3fa"></a>
+<a id="orgbe47ed2"></a>
 
 # Unittest vs Pytest
 
@@ -154,7 +154,7 @@ ab -V
 -   pytest поддерживает запусков тестов для unittest (имеет обратную совместимость с unittest)
 
 
-<a id="org2629c8a"></a>
+<a id="orga0b9e75"></a>
 
 # functional testing
 
@@ -162,7 +162,7 @@ ab -V
 Функциональные тесты проверяют, что вызов некоторой функции / <span class="underline"><span class="underline">[API](https://redoc.ly/docs/cli/)</span></span> / HTML-формы с конкретными параметрами вернёт конкретный результат.
 
 
-<a id="org32aa87b"></a>
+<a id="org1809895"></a>
 
 # functional testing
 
@@ -184,7 +184,7 @@ if __name__ == "__main__":
 ```
 
 
-<a id="org339d521"></a>
+<a id="org2e7fda9"></a>
 
 # integration testing
 
@@ -196,7 +196,7 @@ if __name__ == "__main__":
     удаление записей после создания комментария.
 
 
-<a id="orgcc117ec"></a>
+<a id="orgea6bc85"></a>
 
 # BDD
 
@@ -211,7 +211,7 @@ Behave Driven Development
                 "Последние обновления | Yatube"
 
 
-<a id="orgfc0c109"></a>
+<a id="orga2f90ef"></a>
 
 # Тестирование GUI
 
@@ -223,7 +223,6 @@ pip install selenium
 from selenium import webdriver
 from selenium.webdriver.common.keys \
     import Keys
-
 driver = webdriver.Chrome()
 driver.get("http://www.python.org")
 assert "Python" in driver.title
@@ -231,12 +230,13 @@ elem = driver.find_element_by_name("q")
 elem.clear()
 elem.send_keys("pycon")
 elem.send_keys(Keys.RETURN)
-assert "No results found." not in driver.page_source
+assert "No results found." not in \
+    driver.page_source
 driver.close()
 ```
 
 
-<a id="orgf3b0c15"></a>
+<a id="orga8f3aae"></a>
 
 # Автоматизация тестирования
 
@@ -245,7 +245,7 @@ vim .git/hooks/pre-commit
 ```
 
 
-<a id="orgcc80414"></a>
+<a id="orgfee612d"></a>
 
 # Полезные ссылки
 
@@ -254,7 +254,7 @@ vim .git/hooks/pre-commit
 -   <span class="underline"><span class="underline">[Selenium & BDD](https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/)</span></span>
 
 
-<a id="org5c7d964"></a>
+<a id="org236e12b"></a>
 
 # Вопросы-ответы
 
