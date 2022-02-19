@@ -168,9 +168,10 @@ argument
 
 * Автоматизация тестирования
   #+BEGIN_SRC shell :exports code
-    vim /path/to/git-repo/.git/hooks/pre-commit
+    vim .git/hooks/pre-commit
   #+END_SRC
 * Полезные ссылки
+  - __[[https://habr.com/ru/company/ruvds/blog/450316/][TDD]]__
   - __[[https://selenium-python.readthedocs.io/][Selenium & Python]]__
   - __[[https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/][Selenium & BDD]]__
 * Вопросы-ответы

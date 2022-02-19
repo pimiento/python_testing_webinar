@@ -1,24 +1,24 @@
-- [Какое бывает тестирование](#orga4cc8fd)
-- [Ручное тестирование](#orgf97fef5)
-- [Performance testing](#orgaaac9ff)
-- [Performance testing](#org07d4c54)
-- [Performance testing](#org61e20f3)
-- [Performance testing](#org51bdf0d)
-- [Performance testing](#orgc130d8c)
-- [unit-tests](#org52ffb9d)
-- [Unittest vs Pytest](#org2f70b4f)
-- [functional testing](#org63704f0)
-- [functional testing](#org9450c3f)
-- [integration testing](#org55519a7)
-- [BDD](#orgfd450d5)
-- [Тестирование GUI](#org38c34f5)
-- [Автоматизация тестирования](#org45dfaea)
-- [Полезные ссылки](#org50a2359)
-- [Вопросы-ответы](#orgea0e629)
+- [Какое бывает тестирование](#orgcde77e7)
+- [Ручное тестирование](#org29f8e3e)
+- [Performance testing](#org37765ad)
+- [Performance testing](#orgd71c11c)
+- [Performance testing](#org797dd86)
+- [Performance testing](#org1b66de0)
+- [Performance testing](#org4b5841f)
+- [unit-tests](#orga227e3a)
+- [Unittest vs Pytest](#org1a960c6)
+- [functional testing](#org6a94a0f)
+- [functional testing](#org52001b7)
+- [integration testing](#org5f62c8b)
+- [BDD](#org8849d84)
+- [Тестирование GUI](#org3a7a1c9)
+- [Автоматизация тестирования](#org9916db1)
+- [Полезные ссылки](#org95f2f83)
+- [Вопросы-ответы](#org96e478d)
 
 
 
-<a id="orga4cc8fd"></a>
+<a id="orgcde77e7"></a>
 
 # Какое бывает тестирование
 
@@ -30,14 +30,14 @@
 -   regression testing (регрессионное тестирование)
 
 
-<a id="orgf97fef5"></a>
+<a id="org29f8e3e"></a>
 
 # Ручное тестирование
 
 Обычно у тестировщика есть некоторый план *стандартных задач и действий пользователя*. Тестировщик по этому плану проходит, может пробовать вводить нестандартные значения в формы, пытаться "перехитрить" нашу программу
 
 
-<a id="orgaaac9ff"></a>
+<a id="org37765ad"></a>
 
 # Performance testing
 
@@ -58,7 +58,7 @@ print(
     Time to summarazie 1E+02: 0.00001
 
 
-<a id="org07d4c54"></a>
+<a id="orgd71c11c"></a>
 
 # Performance testing
 
@@ -74,14 +74,14 @@ pp(timeit.repeat(
 ))
 ```
 
-    [6.278976798057556e-06,
-     4.39200084656477e-06,
-     4.014989826828241e-06,
-     3.959983587265015e-06,
-     3.936002030968666e-06]
+    [6.076006684452295e-06,
+     4.481000360101461e-06,
+     4.092988092452288e-06,
+     3.982975613325834e-06,
+     3.857014235109091e-06]
 
 
-<a id="org61e20f3"></a>
+<a id="org797dd86"></a>
 
 # Performance testing
 
@@ -96,7 +96,7 @@ cProfile.run(
 ```
 
 
-<a id="org51bdf0d"></a>
+<a id="org1b66de0"></a>
 
 # Performance testing
 
@@ -119,7 +119,7 @@ python -m memory_profiler mem_prof.py
 ```
 
 
-<a id="orgc130d8c"></a>
+<a id="org4b5841f"></a>
 
 # Performance testing
 
@@ -136,7 +136,7 @@ ab -V
     Licensed to The Apache Software Foundation, http://www.apache.org/
 
 
-<a id="org52ffb9d"></a>
+<a id="orga227e3a"></a>
 
 # unit-tests
 
@@ -145,7 +145,7 @@ ab -V
 -   Каждый тест должен быть независим от других, многие фреймворки позволяют запускать тесты параллельно.
 
 
-<a id="org2f70b4f"></a>
+<a id="org1a960c6"></a>
 
 # Unittest vs Pytest
 
@@ -154,7 +154,7 @@ ab -V
 -   pytest поддерживает запусков тестов для unittest (имеет обратную совместимость с unittest)
 
 
-<a id="org63704f0"></a>
+<a id="org6a94a0f"></a>
 
 # functional testing
 
@@ -162,7 +162,7 @@ ab -V
 Функциональные тесты проверяют, что вызов некоторой функции / <span class="underline"><span class="underline">[API](https://redoc.ly/docs/cli/)</span></span> / HTML-формы с конкретными параметрами вернёт конкретный результат.
 
 
-<a id="org9450c3f"></a>
+<a id="org52001b7"></a>
 
 # functional testing
 
@@ -184,7 +184,7 @@ if __name__ == "__main__":
 ```
 
 
-<a id="org55519a7"></a>
+<a id="org5f62c8b"></a>
 
 # integration testing
 
@@ -196,7 +196,7 @@ if __name__ == "__main__":
     удаление записей после создания комментария.
 
 
-<a id="orgfd450d5"></a>
+<a id="org8849d84"></a>
 
 # BDD
 
@@ -211,7 +211,7 @@ Behave Driven Development
                 "Последние обновления | Yatube"
 
 
-<a id="org38c34f5"></a>
+<a id="org3a7a1c9"></a>
 
 # Тестирование GUI
 
@@ -236,24 +236,25 @@ driver.close()
 ```
 
 
-<a id="org45dfaea"></a>
+<a id="org9916db1"></a>
 
 # Автоматизация тестирования
 
 ```shell
-vim /path/to/git-repo/.git/hooks/pre-commit
+vim .git/hooks/pre-commit
 ```
 
 
-<a id="org50a2359"></a>
+<a id="org95f2f83"></a>
 
 # Полезные ссылки
 
+-   <span class="underline"><span class="underline">[TDD](https://habr.com/ru/company/ruvds/blog/450316/)</span></span>
 -   <span class="underline"><span class="underline">[Selenium & Python](https://selenium-python.readthedocs.io/)</span></span>
 -   <span class="underline"><span class="underline">[Selenium & BDD](https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/)</span></span>
 
 
-<a id="orgea0e629"></a>
+<a id="org96e478d"></a>
 
 # Вопросы-ответы
 
