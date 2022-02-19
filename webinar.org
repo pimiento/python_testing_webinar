@@ -14,7 +14,7 @@
 #+LATEX_HEADER: \usepackage{booktabs}
 #+OPTIONS: \n:t ^:nil num:nil ltoc:nil buttons:nil
 #+NAME: argsubst
-#+BEGIN_SRC emacs-lisp :var argument="1e2" :exports none
+#+BEGIN_SRC emacs-lisp :var argument="1e7" :exports none
 argument
 #+END_SRC
 
@@ -150,7 +150,7 @@ argument
   #+BEGIN_SRC shell :exports code
     pip install selenium
   #+END_SRC
-  #+BEGIN_SRC python :exports code
+  #+BEGIN_SRC python :exports code :tangle "selenium_example.py" :shebang "#!/usr/bin/env python3"
     from selenium import webdriver
     from selenium.webdriver.common.keys \
         import Keys

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 @profile
 def my_func():
-    a = (x for x in range(int(1e2)))
-    b = [x for x in range(int(1e2))]
+    a = (x for x in range(int(1e7)))
+    b = [x for x in range(int(1e7))]
     del b
     return a
 
