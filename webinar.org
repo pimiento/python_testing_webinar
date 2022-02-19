@@ -176,4 +176,4 @@ argument
   - __[[https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/][Selenium & BDD]]__
 * Вопросы-ответы
   #+ATTR_LATEX: :width .6\textwidth
-  [[file:///home/pimiento/yap/questions.jpg]]
+  [[file:questions.jpg]]
