@@ -170,6 +170,18 @@ argument
   #+BEGIN_SRC shell :exports code
     vim .git/hooks/pre-commit
   #+END_SRC
+  #+BEGIN_SRC shell :exports code
+    #!/bin/bash
+    pylint .
+    [ $? -ne 0 ] && exit 1
+    mypy *.py
+    [ $? -ne 0 ] && exit 1
+    pytest .
+    [ $? -ne 0 ] && exit 1
+  #+END_SRC
+  #+BEGIN_SRC shell :exports code
+    chmod +x .git/hooks/pre-commit
+  #+END_SRC
 * Полезные ссылки
   - __[[https://habr.com/ru/company/ruvds/blog/450316/][TDD]]__
   - __[[https://selenium-python.readthedocs.io/][Selenium & Python]]__
