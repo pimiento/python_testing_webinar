@@ -2,5 +2,5 @@
 import cProfile
 
 cProfile.run(
-    "sum(x for x in range(int(1e7)))"
+    "sum(x for x in range(int(1e6)))"
 )

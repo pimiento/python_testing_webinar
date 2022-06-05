@@ -26,7 +26,7 @@ argument
   - integration testing (интеграционное тестирование)
   - regression testing (регрессионное тестирование)
 * Ручное тестирование
-  Обычно у тестировщика есть некоторый план /стандартных задач и действий пользователя/. Тестировщик по этому плану проходит, может пробовать вводить нестандартные значения в формы, пытаться "перехитрить" нашу программу
+  Обычно у тестировщика есть некоторый план /стандартных задач и действий пользователя/. Тестировщик по этому плану проходит, может пробовать вводить нестандартные значения в формы, пытаться "перехитрить"  нашу программу
 * Performance testing
   Время работы
   #+BEGIN_SRC python :exports both :results output :noweb yes
@@ -88,28 +88,46 @@ argument
   #+END_SRC
 * Performance testing
   Apache Benchmark
-  #+BEGIN_SRC shell :exports both :results output
+  #+BEGIN_SRC shell :exports code
     sudo apt install apache2-utils
     ab -V
-    # ab -c 10 -n 8000 http://localhost:8000/
+    ab -c 10 -n 8000 http://localhost:8000/
   #+END_SRC
 
-  #+RESULTS:
-  : This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
-  : Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-  : Licensed to The Apache Software Foundation, http://www.apache.org/
-  :
 * unit-tests
   - Обычно пишутся самими программистами.
-  - В идеали сначала программисты пишут тесты, а потом покрывают эти тесты кодом. TDD: Test Driven Development
+  - В идеале, сначала программисты пишут тесты, а потом покрывают эти тесты кодом. TDD: Test Driven Development
   - Каждый тест должен быть независим от других, многие фреймворки позволяют запускать тесты параллельно.
 * Unittest vs Pytest
   - Unittest встроен в Python, pytest надо устанавливать.
   - pytest богаче в плане вывода отчётов, параметризации тестов, поэтому используется чаще.
-  - pytest поддерживает запусков тестов для unittest (имеет обратную совместимость с unittest)
+  - pytest поддерживает запуск тестов для unittest (имеет обратную совместимость с unittest)
+* fixtures
+  __[[https://django-testing-docs.readthedocs.io/en/latest/fixtures.html][фикстуры]]__
+  - Описывают данные, которые должны быть созданы в тестовой базе данных.
+  - Можно выгрузить данные из реальной базы и затем добавить их в тестовые данные.
+* Faker
+  __[[https://faker.readthedocs.io/en/stable/][pip install faker]]__
+  #+BEGIN_SRC python :exports both :results output
+    from faker import Faker
+
+    fake = Faker("ru_RU.UTF-8")
+    print(fake.address())
+    print(fake.phone_number())
+    print(fake.ipv4())
+  #+END_SRC
+
+  #+RESULTS:
+  : клх Приозерск, ул. Щорса, д. 64, 133212
+  : +7 028 055 67 46
+  : 144.98.233.231
+* FactoryBoy
+  __[[https://factoryboy.readthedocs.io/en/stable/][документация]]__
+  - Описывает фикстуры как Python-код
+  - Возможность использовать Faker для создания случайных данных
 * functional testing
   Главное __[[https://www.educba.com/unit-test-vs-functional-test/][отличие]]__ от Unit-tests в том, что пишущий такие тесты не знает об устройстве программы. Такой подход называется *black-box*.
-  Функциональные тесты проверяют, что вызов некоторой функции / __[[https://redoc.ly/docs/cli/][API]]__ / HTML-формы с конкретными параметрами вернёт конкретный результат.
+  Функциональные тесты проверяют, что вызов некоторого API с конкретными параметрами вернёт конкретный результат.
 * functional testing
   __[[https://docs.python.org/3/library/doctest.html][Doctest]]__
    #+BEGIN_SRC python :exports code :tangle "doctest_ex.py" :shebang "#!/usr/bin/env python3"
@@ -184,6 +202,8 @@ argument
   #+END_SRC
 * Полезные ссылки
   - __[[https://habr.com/ru/company/ruvds/blog/450316/][TDD]]__
+  - __[[https://developer.mozilla.org/ru/docs/Learn/Server-side/Django/Testing][MDN. Тестирование Django]]__
+  - __[[https://lexover.ru/2021/03/07/test-django-using-pytest/][Pytest + Django]]__
   - __[[https://selenium-python.readthedocs.io/][Selenium & Python]]__
   - __[[https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/][Selenium & BDD]]__
 * Вопросы-ответы
