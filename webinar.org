@@ -206,6 +206,8 @@ argument
   - __[[https://lexover.ru/2021/03/07/test-django-using-pytest/][Pytest + Django]]__
   - __[[https://selenium-python.readthedocs.io/][Selenium & Python]]__
   - __[[https://www.bddtesting.com/using-the-behave-framework-for-selenium-bdd-testing-a-tutorial/][Selenium & BDD]]__
+  - __[[https://nuancesprog.ru/p/1161/][Начнём работу с Mock в Python]]__
+  - __[[https://habr.com/ru/post/141209/][Модуль Mock: макеты пустышки в тестировании]]__
 * Вопросы-ответы
   #+ATTR_LATEX: :width .6\textwidth
   [[file:questions.jpg]]
